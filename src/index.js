@@ -13,7 +13,7 @@ app.get("/",(request,response)=>{
 })
 app.use(cors());
 app.use(bodyParser.json());
-app.use('/api/v1/cars/',v1CarRoutes)
+app.use('/api/v1/cars',v1CarRoutes)
 
 app.listen(PORT,()=>console.log(`Funcionando puerto ${PORT}`))
 
