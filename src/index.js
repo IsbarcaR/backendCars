@@ -2,14 +2,14 @@ const express= require ('express');
 
 const cors= require('cors')
 const corsOptions = {
-    origin: "*", // O usa '*' si quieres permitir cualquier origen
+    origin: "0.0.0.0/0", // O usa '*' si quieres permitir cualquier origen
     methods: "GET,POST,PUT,DELETE,PATCH",
     allowedHeaders: "Content-Type,Authorization",
   };
 const app = express()
 const PORT= process.env.PORT || 3000;
 const v1CarRoutes= require("./v1/routes/carsRoutes");
-const bodparser= require("body-parser");
+
 const bodyParser = require('body-parser');
 
 
