@@ -32,9 +32,10 @@
       "name": "Porsche 718 Cayman GT4 RS",
       "year": 2023,
       "type": "Coupe",
-      "brand": "Porsche",
+      "brand": "Porschee",
       "specifications": "4.0L Naturally Aspirated Flat-6 engine, 493 horsepower, 450 Nm torque, 7-speed PDK transmission, RWD drivetrain",
-      "image": "https://www.km77.com/images/medium/0/2/7/9/cayman-gt4-rs-frontal-lateral-2.360279.jpg"
+      "image": "https://www.km77.com/images/medium/0/2/7/9/cayman-gt4-rs-frontal-lateral-2.360279.jpg",
+      "updatedAt": "3/6/2025, 12:25:34 PM"
     }
   ]
 }

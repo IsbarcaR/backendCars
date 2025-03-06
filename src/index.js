@@ -14,9 +14,7 @@ const bodyParser = require('body-parser');
 
 
 
-app.use(cors({
-    origin: 'https://cars-app-sooty.vercel.app'
-  }));
+app.use(cors());
 /* app.use(cors(corsOptions)); */
 app.use(bodyParser.json());
 
