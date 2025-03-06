@@ -17,7 +17,7 @@ app.get("/",(request,response)=>{
     response.send('<h1>HOLA CHURROS</h1>')
 })
 app.use(cors({
-    origin: 'https://cars-app-sooty.vercel.app/'
+    origin: 'https://cars-app-sooty.vercel.app'
   }));
 /* app.use(cors(corsOptions)); */
 app.use(bodyParser.json());
