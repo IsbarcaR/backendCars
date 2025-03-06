@@ -15,7 +15,7 @@ const saveToDatabase = (data) => {
   }
 };
 
-const getAllCars = () => {
+const getAllCars = (filtro) => {
   try {
     return DB.cars;
   } catch (error) {

@@ -3,7 +3,8 @@
     {
       "id": "1",
       "user": "ismael",
-      "email": "ismael@gmail.com"
+      "email": "ismael@gmail.com",
+      "pass": "1234"
     }
   ],
   "cars": [
