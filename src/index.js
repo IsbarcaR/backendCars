@@ -2,7 +2,7 @@ const express= require ('express');
 
 const cors= require('cors')
 const corsOptions = {
-    origin: "0.0.0.0/0", // O usa '*' si quieres permitir cualquier origen
+    origin: "*", // O usa '*' si quieres permitir cualquier origen
     methods: "GET,POST,PUT,DELETE,PATCH",
     allowedHeaders: "Content-Type,Authorization",
   };
