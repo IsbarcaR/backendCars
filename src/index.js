@@ -13,14 +13,16 @@ const v1CarRoutes= require("./v1/routes/carsRoutes");
 const bodyParser = require('body-parser');
 
 
-app.get("/",(request,response)=>{
-    response.send('<h1>HOLA CHURROS</h1>')
-})
+
 app.use(cors({
     origin: 'https://cars-app-sooty.vercel.app'
   }));
 /* app.use(cors(corsOptions)); */
 app.use(bodyParser.json());
+
+app.get("/",(request,response)=>{
+    response.send('<h1>HOLA CHURROS</h1>')
+})
 app.use('/api/v1/cars',v1CarRoutes)
 
 app.listen(PORT,()=>console.log(`Funcionando puerto ${PORT}`))
