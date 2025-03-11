@@ -1,59 +1,58 @@
 const Cars = require("../database/cars");
 const { v4: uuid } = require("uuid");
 
-const getUser =() => {
+const getUser = async () => {
   try {
-    const user = Cars.getUser();
+    const user = await Cars.getUser();
     return user;
   } catch (error) {
     throw error;
   }
 };
 
-const getAllCars = () => {
+const getAllCars = async () => {
   try {
-    const allCars = Cars.getAllCars();
+    const allCars = await Cars.getAllCars();
     return allCars;
   } catch (error) {
     throw error;
   }
 };
 
-const getCar = (carId) => {
+const getCar = async (carId) => {
   try {
-    const car = Cars.getCar(carId);
+    const car = await Cars.getCar(carId);
     return car;
   } catch (error) {
     throw error;
   }
 };
 
-const createCar = (newCar) => {
+const createCar = async (newCar) => {
   const carToInsert = {
-    ...newCar, //crear copia del objeto
+    ...newCar, 
     id: uuid(),
-    
   };
   try {
-    const createdCar = Cars.createCar(carToInsert);
+    const createdCar = await Cars.createCar(carToInsert);
     return createdCar;
   } catch (error) {
     throw error;
   }
 };
 
-const updateCar = (carId, changes) => {
+const updateCar = async (carId, changes) => {
   try {
-    const updatedCar = Cars.updateCar(carId, changes);
+    const updatedCar = await Cars.updateCar(carId, changes);
     return updatedCar;
   } catch (error) {
     throw error;
   }
 };
 
-const deleteCar = (carId) => {
+const deleteCar = async (carId) => {
   try {
-    Cars.deleteCar(carId);
+    await Cars.deleteCar(carId);
   } catch (error) {
     throw error;
   }

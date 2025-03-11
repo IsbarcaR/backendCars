@@ -1,108 +1,56 @@
-const DB = require("./db.json");
-const fs = require("fs");
-const path = require("path");
-const DB_PATH = path.join(__dirname, "db.json");
+const { MongoClient, ObjectId } = require("mongodb");
 
-const saveToDatabase = (data) => {
-  fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2));
-};
+const uri = "mongodb+srv://ismaelbarranco2402:Vnw7rSEfsfuzObQi@cars.vffov.mongodb.net/?retryWrites=true&w=majority&appName=Cars";
+const client = new MongoClient(uri);
 
- const getUser= () => {
+let db; 
+
+async function connectDB() {
+  if (!db) {
+    await client.connect();
+    db = client.db("CarsDB");
+    console.log("🔗 Conectado a MongoDB");
+  }
+  return db;
+}
+
+async function getAllCars() {
+  const db = await connectDB();
+  return await db.collection("cars").find().toArray();
+}
+
+async function getCar(carId) {
+  const db = await connectDB();
   try {
-    return DB.user;
+    
+    return await db.collection("cars").findOne({ id: carId });
   } catch (error) {
-    throw { status: 500, message: error };
+    console.error("Error buscando coche por id:", error);
+    throw error;
   }
-};
+}
 
-const getAllCars = (filtro) => {
-  try {
-    return DB.cars;
-  } catch (error) {
-    throw { status: 500, message: error };
-  }
-};
-const createCar = (newCar) => {
-  const isAlreadyAdded =
-    DB.cars.findIndex((car) => car.name === newCar.name) > -1;
-  if (isAlreadyAdded) {
-    throw {
-      status: 400,
-      message: `Car with the name '${newCar.name}' already exists`,
-    };
-  }
-  try {
-    DB.cars.push(newCar);
+async function createCar(newCar) {
+  const db = await connectDB();
+  const result = await db.collection("cars").insertOne(newCar);
+  return { _id: result.insertedId, ...newCar };
+}
 
-    fs.writeFileSync(DB_PATH, JSON.stringify(DB, null, 2), "utf-8");
+async function updateCar(carId, changes) {
+  const db = await connectDB();
+  await db.collection("cars").updateOne({ id: carId }, { $set: changes });
+  return await getCar(carId);
+}
 
-    return newCar;
-  } catch (error) {
-    throw { status: 500, message: error?.message || error };
-  }
-};
-const getCar = (carId) => {
-  try {
-    const car = DB.cars.find((car) => ((car.id === carId ||car.name===carId)));
-    if (!car) {
-      throw {
-        status: 400,
-        message: `Cant find workout with the id '${carId}'`,
-      };
-    }
-    return car;
-  } catch (error) {
-    throw { status: error?.status || 500, message: error?.message || error };
-  }
-};
+async function deleteCar(carId) {
+  const db = await connectDB();
+  return await db.collection("cars").deleteOne({ id: carId });
+}
 
-const updateCar = (carId, changes) => {
-  try {
-   /*  const isAlreadyAdded =
-      DB.cars.findIndex((car) => car.name === changes.name) > -1;
-    if (isAlreadyAdded) {
-      throw {
-        status: 400,
-        message: `Car with the name '${changes.name}' already exits`,
-      };
-    } */
-
-    const indexForUpdate = DB.cars.findIndex((car) => car.id === carId);
-    if (indexForUpdate === -1) {
-      throw {
-        status: 400,
-        message: `Cant find any car with the id '${carId}'`,
-      };
-    }
-
-    const updatedCar = {
-      ...DB.cars[indexForUpdate],
-      ...changes,
-      updatedAt: new Date().toLocaleString("en-US", { timeZone: "UTC" }),
-    };
-    DB.cars[indexForUpdate] = updatedCar;
-    saveToDatabase(DB);
-    return updatedCar;
-  } catch (error) {
-    throw { status: error?.status || 500, message: error?.message || error };
-  }
-};
-
-const deleteCar = (carId) => {
-  try {
-    const indexForDeletion = DB.cars.findIndex((car) => car.id === carId);
-    if (indexForDeletion === -1) {
-      throw {
-        status: 400,
-        message: `Cant find car with the id '${carId}'`,
-      };
-    }
-    DB.cars.splice(indexForDeletion, 1);
-    saveToDatabase(DB);
-  } catch (error) {
-    throw { status: error?.status || 500, message: error?.message || error };
-  }
-};
+async function getUser() {
+  const db = await connectDB();
+  return await db.collection("users").findOne();
+}
 
 module.exports = {
   getAllCars,
@@ -110,5 +58,6 @@ module.exports = {
   getCar,
   updateCar,
   deleteCar,
-  getUser
+  getUser,
+  connectDB
 };

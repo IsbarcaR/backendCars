@@ -37,6 +37,15 @@
       "specifications": "4.0L Naturally Aspirated Flat-6 engine, 493 horsepower, 450 Nm torque, 7-speed PDK transmission, RWD drivetrain",
       "image": "https://www.km77.com/images/medium/0/2/7/9/cayman-gt4-rs-frontal-lateral-2.360279.jpg",
       "updatedAt": "3/6/2025, 12:25:34 PM"
+    },
+    {
+      "name": "Porsches 911 Turbo Sss",
+      "year": 2024,
+      "type": "Sedan",
+      "specifications": "Dual Electric Motors, 750 horsepower, 1050 Nm torque, 2-speed Automatic transmission, AWD drivetrain",
+      "image": "https://files.porsche.com/filestore/image/multimedia/none/911-tus-modelimage-sideshot/model/930894f1-6214-11ea-80c8-005056bbdc38/porsche-model.png",
+      "brand": "Porsche",
+      "id": "254e0633-58fc-4dfe-83b3-4ca5774111f0"
     }
   ]
 }
