@@ -1,15 +1,20 @@
 const { MongoClient, ObjectId } = require("mongodb");
 
-const uri = "mongodb+srv://ismaelbarranco2402:Vnw7rSEfsfuzObQi@cars.vffov.mongodb.net/?retryWrites=true&w=majority&appName=Cars";
+const uri = process.env.MONGODB_URI || "mongodb+srv://ismaelbarranco2402:Vnw7rSEfsfuzObQi@cars.vffov.mongodb.net/?retryWrites=true&w=majority&appName=Cars";
 const client = new MongoClient(uri);
 
 let db; 
 
 async function connectDB() {
   if (!db) {
-    await client.connect();
-    db = client.db("CarsDB");
-    console.log("🔗 Conectado a MongoDB");
+    try {
+      await client.connect();
+      db = client.db(process.env.MONGODB_DB_NAME || "CarsDB");
+      console.log("🔗 Conectado a MongoDB");
+    } catch (error) {
+      console.error("Error al conectar a MongoDB:", error);
+      throw error; 
+    }
   }
   return db;
 }
